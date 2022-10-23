@@ -89,7 +89,7 @@ describe Administrate::Generators::DashboardGenerator, :generator do
       it "defaults to a string column that is not searchable" do
         begin
           ActiveRecord::Schema.define do
-            create_table(:foos) { |t| t.inet :ip_address }
+            create_table(:foos) { |t| t.binary :active }
           end
 
           class Foo < ApplicationRecord
@@ -100,7 +100,7 @@ describe Administrate::Generators::DashboardGenerator, :generator do
           load file("app/dashboards/foo_dashboard.rb")
           attrs = FooDashboard::ATTRIBUTE_TYPES
 
-          expect(attrs[:ip_address]).
+          expect(attrs[:active]).
             to eq(Administrate::Field::String.with_options(searchable: false))
         ensure
           remove_constants :Foo, :FooDashboard

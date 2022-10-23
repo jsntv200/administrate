@@ -5,13 +5,13 @@ module Admin
 
       customer_ids = Customer.where(
         [
-          "name ILIKE ?",
+          "name LIKE ?",
           "%#{search_term}%",
         ],
       ).pluck(:id)
       order_ids = Order.joins(:customer).where(
         [
-          "customers.name ILIKE ?",
+          "customers.name LIKE ?",
           "%#{search_term}%",
         ],
       ).pluck(:id)
